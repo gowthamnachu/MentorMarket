@@ -1,0 +1,486 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Mentor Market</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+    <style>
+        /* Basic styles for the home page */
+        body {
+            background-color: #121212;  /* Dark background color */
+            color: white;  /* White text */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;  /* Ensure the body takes at least the full height of the viewport */
+        }
+
+        /* UN header styles */
+        .un-header {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            background-color:  rgb(7, 7, 80);;
+            color: white;
+            padding: 30px 10px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 100;
+            animation: slideDown 2s ease-out forwards;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -70px;
+            }
+            to {
+                top: 0px;
+            }
+        }
+
+        /* MentorMarket text animation styles */
+        .mentor-market-text {
+            margin: 0;
+            display: inline-block;
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        .mentor-market-text span {
+            display: inline-block;
+            opacity: 0;
+            animation: slideIn 1.5s forwards;
+        }
+
+        .mentor-market-text span:nth-child(odd) {
+            animation-delay: 0.3s;
+        }
+
+        .mentor-market-text span:nth-child(even) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Left-side Mentor Market Video */
+        .mentor-market-video {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+        }
+
+        .mentor-market-video video {
+            width: 80px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px #121212;
+        }
+
+        /* Navbar styles */
+        .un-header .navbar {
+            position: absolute;
+            top: 50%; /* Align it vertically with the MentorMarket text */
+            right: 15px;
+            transform: translateY(-50%); /* Adjust the position to the center of the header */
+            display: flex;
+            gap: 20px;
+            align-items: center; /* Align the nav items with the MentorMarket text */
+        }
+
+        .un-header .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .un-header .navbar a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .un-header .navbar .logout {
+            background-color: #dc3545;
+        }
+
+        .un-header .navbar .logout:hover {
+            background-color: #a71d2a;
+        }
+
+        /* Greeting Section styles */
+        .greeting {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: left;
+            margin-top: 110px;  /* Positioned further down */
+            color: #f0f0f0;  /* Slightly lighter text color for contrast */
+            padding: 10px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Animation for fading in greeting */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .greeting span {
+            color: goldenrod;  /* Blue color for the username */
+            font-weight: bold;
+        }
+/* Slideshow Container */
+.slideshow-container {
+    position: absolute;
+    top: 90px;  /* Adjust the top value to position it below the logout button */
+    right: 25px;  /* Place it on the right side of the screen */
+    width: 40%;  /* Adjust width to your preference */
+    max-width: 500px;  /* Limit maximum width */
+    margin: 0;  /* Remove margin to prevent unwanted spacing */
+    overflow: hidden;  /* Hide images outside the container */
+    border: 5px solid #121212;  /* Outline around the box */
+    border-radius: 10px;  /* Rounded corners for the box */
+    background-color: #121212 ; /* Dark background for the slideshow */
+    box-shadow: 0 4px 8px #121212;/* Shadow effect */
+    display: flex;  /* Flexbox to center content */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Slideshow images (scaled without cropping, container fits images) */
+.slideshow-images {
+    margin-top: 50px;
+    padding-top: 10px;
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.slideshow-images .slide {
+    min-width: 100%;  /* Each slide takes up 100% of the container's width */
+    display: flex;
+    justify-content: center;  /* Center the image */
+    align-items: center;  /* Center the image vertically */
+}
+
+/* Slideshow images with animations */
+.slideshow-images .slide img {
+    width: 60%;  /* Reduced width for images */
+    height: auto;  /* Let the height adjust based on width */
+    object-fit: contain;  /* Prevent cropping and maintain aspect ratio */
+    border-radius: 10px;
+    opacity: 0;  /* Initially, set the image to be invisible */
+    animation: fadeInImage 1s forwards;  /* Apply the fade-in effect */
+    animation-delay: 0.5s;  /* Delay animation for a smooth transition */
+}
+
+/* Keyframe for the fade-in effect */
+@keyframes fadeInImage {
+    from {
+        opacity: 0;
+        transform: scale(0.8);  /* Start from a slightly smaller scale */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);  /* End at the normal size */
+    }
+}
+
+/* Add more dynamic image animation */
+.slideshow-images .slide img:nth-child(odd) {
+    animation-delay: 0.5s;  /* Delay slightly for odd slides */
+}
+
+.slideshow-images .slide img:nth-child(even) {
+    animation-delay: 1s;  /* Delay more for even slides */
+}
+
+
+       /* Adjusting the position of the quotes section */
+.quotes-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid layout with flexible columns */
+    gap: 30px; /* Increase gap between quote boxes for better spacing */
+    margin: 80px 5% 40px 5%; /* Increased top margin to push quotes down */
+    padding: 100px;
+    justify-items: flex-start; /* Align quote boxes to the left */
+}
+
+/* Rest of the quote-box styling remains the same */
+.quote-box {
+    background-color: #2c2c2c; /* Darker background for better contrast */
+    color: white;
+    padding: 25px; /* Increased padding for better spacing */
+    border-radius: 20px; /* More rounded corners for a smoother look */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Larger shadow for depth */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px; /* Slightly increased height */
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    animation: moveLine 3s linear infinite;
+    max-width: 100%;  /* Ensure quote boxes fit within available space */
+    background: linear-gradient(135deg, #1a1a1a 20%, #333333 100%); /* Subtle gradient background */
+}
+
+/* Additional hover effect to make the quote boxes more interactive */
+.quote-box:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
+}
+
+/* Animation for slow-moving white line */
+@keyframes moveLine {
+    0% {
+        border-color: transparent;
+        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.7);
+    }
+    25% {
+        box-shadow: 5px 0 0 0px rgba(255, 255, 255, 0.7);
+    }
+    50% {
+        box-shadow: 5px 0 0 0px rgba(255, 255, 255, 0.7), 0 5px 0 0px rgba(255, 255, 255, 0.7);
+    }
+    75% {
+        box-shadow: 5px 0 0 0px rgba(255, 255, 255, 0.7), 0 5px 0 0px rgba(255, 255, 255, 0.7), 0 5px 0 0px rgba(255, 255, 255, 0.7);
+    }
+    100% {
+        box-shadow: 5px 0 0 0px rgba(255, 255, 255, 0.7), 0 5px 0 0px rgba(255, 255, 255, 0.7), 0 5px 0 0px rgba(255, 255, 255, 0.7), 5px 0 0 0px rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* Author Image Positioning */
+.quote-box .author-image {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Centering the image at the bottom */
+    width: 50%; /* Adjust size of the image */
+    height: 50%;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+/* Show author image when hovering over the quote box */
+.quote-box:hover .author-image {
+    display: block;
+    opacity: 1;
+}
+
+/* Text and Author Styling */
+.quote-box p {
+    font-style: italic;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5; /* More comfortable line spacing */
+}
+
+.quote-box .author {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #00bfff; /* Brighter color for author name */
+}
+
+        /* UH Footer Styles */
+        .uh-footer {
+            position: relative;
+            background-color: #1e1e1e;
+            color: white;
+            padding: 20px 0;
+            margin-top: auto;
+            text-align: center;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-content p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .social-link {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            color: #0056b3;
+        }
+
+        .legal {
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Left-side Mentor Market Video -->
+    <div class="mentor-market-video">
+        <video autoplay muted loop>
+            <source src="{% static 'videos/intro.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- UN Header -->
+    <div class="un-header">
+        <div class="mentor-market-text">
+            <span>M</span><span>e</span><span>n</span><span>t</span><span>o</span><span>r</span> <span>M</span><span>a</span><span>r</span><span>k</span><span>e</span><span>t</span>
+        </div>
+        <div class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'mentor' %}">Mentor Page</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <!-- Greeting Section -->
+    <div class="greeting">
+        <p>Welcome back, <span>{{ user.username }}👋</span></p>
+    </div>
+
+    <!-- Slideshow Container -->
+    <div class="slideshow-container">
+        <div class="slideshow-images">
+            <div class="slide">
+                <img src="{% static 'images/image1.jpg' %}" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image2.jpg' %}" alt="Image 2">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image7.jpg' %}" alt="Image 7">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image4.jpg' %}" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image5.jpg' %}" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/image6.jpg' %}" alt="Image 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- Quotes Section -->
+    <div class="quotes-section">
+        <div class="quote-box">
+            <p>"A mentor is someone who helps you see the possibilities in your future."</p>
+            <div class="author">John C. Maxwell</div>
+            <img src="{% static 'images/john.jpg' %}" alt="John C. Maxwell" class="author-image">
+        </div>
+        <div class="quote-box">
+            <p>"Success is not how high you have climbed, but how you make a positive difference to the world."</p>
+            <div class="author">Roy T. Bennett</div>
+            <img src="{% static 'images/roy_bennett.jpg' %}" alt="Roy T. Bennett" class="author-image">
+        </div>
+        <div class="quote-box">
+            <p>"A mentor is someone who believes in you, even when you don’t believe in yourself."</p>
+            <div class="author">Sheryl Sandberg</div>
+            <img src="{% static 'images/sheryl_sandberg.jpg' %}" alt="Sheryl Sandberg" class="author-image">
+        </div>
+        <div class="quote-box">
+            <p>"Mentoring is a brain to pick, an ear to listen, and a push in the right direction."</p>
+            <div class="author">John C. Crosby </div>
+            <img src="{% static 'images/john1.jpg' %}" alt="John C.Crosby" class="author-image">
+        </div>
+    </div>
+
+   <!-- UH Footer -->
+<div class="uh-footer">
+    <div class="footer-content">
+        <p><strong>Mentor Market</strong> - Empowering Your Future</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Careers</a>
+        </div>
+    </div>
+    <div class="social">
+        <a href="#" class="social-link">Facebook</a>
+        <a href="#" class="social-link">Twitter</a>
+        <a href="#" class="social-link">LinkedIn</a>
+        <a href="#" class="social-link">Instagram</a>
+    </div>
+    <div class="contact-info">
+        <p>Email: <a href="mailto:info@mentormarket.com" style="color: #007bff; text-decoration: none;">info@mentormarket.com</a></p>
+        <p>Phone: +1 (123) 456-7890</p>
+        <p>Address: 123 Mentor Lane, Knowledge City, Global 12345</p>
+    </div>
+    <div class="legal">
+        <p>© 2024 Mentor Market</p>
+        <p>Designed by <strong>N. Gowtham & M. Snigdha</strong></p>
+    </div>
+</div>
+
+
+    <script>
+        // JavaScript for continuous image slideshow
+        let index = 0;
+        const images = document.querySelector('.slideshow-images');
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlides() {
+            index++;
+            if (index >= slides.length) {
+                index = 0;
+            }
+            images.style.transform = `translateX(-${index * 100}%)`;  // Move the slideshow
+        }
+
+        setInterval(showSlides, 3000);  // Change image every 3 seconds
+    </script>
+</body>
+</html>

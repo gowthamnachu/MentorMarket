@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Fitness Mentors - Mentor Market{% endblock %}
+
+{% block content %}
+<div class="about-section">
+    <h2 class="highlighted-heading">Meet Our Fitness Mentors</h2>
+    <p class="subheading-text">Our fitness experts are here to guide you on improving your health, strength, and wellness.</p>
+</div>
+
+<div class="mentor-list">
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Jake Walker" class="mentor-photo">
+        <h3>Jake Walker</h3>
+        <p><strong>Expertise:</strong> Personal Training</p>
+        <p><strong>Experience:</strong> 10 years</p>
+        <p><strong>Bio:</strong> Helping individuals improve strength, endurance, and overall fitness.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Sarah Lee" class="mentor-photo">
+        <h3>Sarah Lee</h3>
+        <p><strong>Expertise:</strong> Yoga & Wellness</p>
+        <p><strong>Experience:</strong> 8 years</p>
+        <p><strong>Bio:</strong> Specializing in mindfulness and flexibility through yoga.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Chris Martin" class="mentor-photo">
+        <h3>Chris Martin</h3>
+        <p><strong>Expertise:</strong> Strength Training</p>
+        <p><strong>Experience:</strong> 12 years</p>
+        <p><strong>Bio:</strong> Helping clients build muscle and improve body composition.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Megan Scott" class="mentor-photo">
+        <h3>Megan Scott</h3>
+        <p><strong>Expertise:</strong> Nutrition & Fitness</p>
+        <p><strong>Experience:</strong> 6 years</p>
+        <p><strong>Bio:</strong> Offering fitness-focused nutrition plans to optimize health.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Liam Rodriguez" class="mentor-photo">
+        <h3>Liam Rodriguez</h3>
+        <p><strong>Expertise:</strong> Cardio & Endurance</p>
+        <p><strong>Experience:</strong> 7 years</p>
+        <p><strong>Bio:</strong> Helping individuals boost cardiovascular fitness and endurance.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+
+    .highlighted-heading {
+        font-family: 'Poppins', sans-serif;
+        font-size: 36px;
+        font-weight: 600;
+        color: #007bff;
+        text-shadow: 2px 2px 10px rgba(0, 123, 255, 0.7);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .mentor-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .mentor-card {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+    .mentor-card:hover {
+        transform: scale(1.05);
+    }
+
+    .mentor-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .cta-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 15px;
+    }
+
+    .cta-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .subheading-text {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        color: #6c757d;
+        text-align: center;
+        margin-top: 10px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 15px;
+    }
+</style>
+
+{% endblock %}

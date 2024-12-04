@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mentor Market{% endblock %}</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Include your existing styles here */
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: flex-start;
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 1100px;
+
+            margin-top: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .un-header {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            background-color: rgb(7, 7, 80);
+            color: white;
+            padding: 30px 10px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 100;
+            animation: slideDown 2s ease-out forwards;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        @keyframes slideDown {
+            from {
+                top: -70px;
+            }
+            to {
+                top: 0px;
+            }
+        }
+        .mentor-market-text {
+            margin: 0;
+            display: inline-block;
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+        .mentor-market-text span {
+            display: inline-block;
+            opacity: 0;
+            animation: slideIn 1.5s forwards;
+        }
+        .mentor-market-text span:nth-child(odd) {
+            animation-delay: 0.3s;
+        }
+        .mentor-market-text span:nth-child(even) {
+            animation-delay: 0.6s;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .mentor-market-video {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+        }
+        .mentor-market-video video {
+            width: 80px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px #121212;
+        }
+        .un-header .navbar {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .un-header .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .un-header .navbar a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        .un-header .navbar .logout {
+            background-color: #dc3545;
+        }
+        .un-header .navbar .logout:hover {
+            background-color: #a71d2a;
+        }
+        .uh-footer {
+            position: relative;
+            background-color: #1e1e1e;
+            color: white;
+            padding: 20px 0;
+            margin-top: auto;
+            text-align: center;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .footer-content p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #007bff;
+        }
+        .social-link {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .social-link:hover {
+            color: #0056b3;
+        }
+        .legal {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left-side Mentor Market Video -->
+    <div class="mentor-market-video">
+        <video autoplay muted loop>
+            <source src="{% static 'videos/intro.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- UN Header -->
+        <div class="un-header">
+            <div class="mentor-market-text">
+                <span>M</span><span>e</span><span>n</span><span>t</span><span>o</span><span>r</span> <span>M</span><span>a</span><span>r</span><span>k</span><span>e</span><span>t</span>
+            </div>
+            <div class="navbar">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'mentor' %}">Mentor Page</a>
+                <a href="{% url 'about' %}">About Us</a>
+                <a href="{% url 'logout' %}" class="logout">Logout</a>
+            </div>
+        </div>
+
+        <!-- Main Content Block -->
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+       <!-- UH Footer -->
+<div class="uh-footer">
+    <div class="footer-content">
+        <p><strong>Mentor Market</strong> - Empowering Your Future</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Careers</a>
+        </div>
+    </div>
+    <div class="social">
+        <a href="#" class="social-link">Facebook</a>
+        <a href="#" class="social-link">Twitter</a>
+        <a href="#" class="social-link">LinkedIn</a>
+        <a href="#" class="social-link">Instagram</a>
+    </div>
+    <div class="contact-info">
+        <p>Email: <a href="mailto:info@mentormarket.com" style="color: #007bff; text-decoration: none;">info@mentormarket.com</a></p>
+        <p>Phone: +1 (123) 456-7890</p>
+        <p>Address: 123 Mentor Lane, Knowledge City, Global 12345</p>
+    </div>
+    <div class="legal">
+        <p>© 2024 Mentor Market</p>
+        <p>Designed by <strong>N. Gowtham & M. Snigdha</strong></p>
+    </div>
+</div>
+
+
+</body>
+</html>

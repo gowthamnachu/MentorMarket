@@ -1,0 +1,388 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Mentor Market</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styles for the home page */
+        body {
+            background-color: #121212;  /* Dark background color */
+            color: white;  /* White text */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;  /* Ensure the body takes at least the full height of the viewport */
+        }
+
+        /* UN header styles */
+        .un-header {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            background-color: #1e1e1e;
+            color: white;
+            padding: 30px 10px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 100;
+            animation: slideDown 2s ease-out forwards;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -70px;
+            }
+            to {
+                top: 0px;
+            }
+        }
+
+        /* MentorMarket text animation styles */
+        .mentor-market-text {
+            margin: 0;
+            display: inline-block;
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        .mentor-market-text span {
+            display: inline-block;
+            opacity: 0;
+            animation: slideIn 1.5s forwards;
+        }
+
+        .mentor-market-text span:nth-child(odd) {
+            animation-delay: 0.3s;
+        }
+
+        .mentor-market-text span:nth-child(even) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Left-side Mentor Market Video */
+        .mentor-market-video {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+        }
+
+        .mentor-market-video video {
+            width: 80px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px #121212;
+        }
+
+        /* Navbar styles */
+        .un-header .navbar {
+            position: absolute;
+            top: 50%; /* Align it vertically with the MentorMarket text */
+            right: 15px;
+            transform: translateY(-50%); /* Adjust the position to the center of the header */
+            display: flex;
+            gap: 20px;
+            align-items: center; /* Align the nav items with the MentorMarket text */
+        }
+
+        .un-header .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .un-header .navbar a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .un-header .navbar .logout {
+            background-color: #dc3545;
+        }
+
+        .un-header .navbar .logout:hover {
+            background-color: #a71d2a;
+        }
+
+        /* Greeting Section styles */
+        .greeting {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: left;
+            margin-top: 110px;  /* Positioned further down */
+            color: #f0f0f0;  /* Slightly lighter text color for contrast */
+            padding: 10px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Animation for fading in greeting */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .greeting span {
+            color: goldenrod;  /* Blue color for the username */
+            font-weight: bold;
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: absolute;
+            top: 90px;  /* Adjust the top value to position it below the logout button */
+            right: 25px;  /* Place it on the right side of the screen */
+            width: 40%;  /* Adjust width to your preference */
+            max-width: 500px;  /* Limit maximum width */
+            margin: 0;  /* Remove margin to prevent unwanted spacing */
+            overflow: hidden;  /* Hide images outside the container */
+            border: 5px solid #121212;  /* Outline around the box */
+            border-radius: 10px;  /* Rounded corners for the box */
+            background-color: #121212 ; /* Dark background for the slideshow */
+            box-shadow: 0 4px 8px #121212;/* Shadow effect */
+            display: flex;  /* Flexbox to center content */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Slideshow images (scaled without cropping, container fits images) */
+        .slideshow-images {
+            margin-top: 50px;
+            padding-top: 10px;
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .slideshow-images .slide {
+            min-width: 100%;  /* Each slide takes up 100% of the container's width */
+            display: flex;
+            justify-content: center;  /* Center the image */
+            align-items: center;  /* Center the image vertically */
+        }
+
+        /* Slideshow images with animations */
+        .slideshow-images .slide img {
+            width: 60%;  /* Reduced width for images */
+            height: auto;  /* Let the height adjust based on width */
+            object-fit: contain;  /* Prevent cropping and maintain aspect ratio */
+            border-radius: 10px;
+            opacity: 0;  /* Initially, set the image to be invisible */
+            animation: fadeInImage 1s forwards;  /* Apply the fade-in effect */
+            animation-delay: 0.5s;  /* Delay animation for a smooth transition */
+        }
+
+        /* Keyframe for the fade-in effect */
+        @keyframes fadeInImage {
+            from {
+                opacity: 0;
+                transform: scale(0.8);  /* Start from a slightly smaller scale */
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);  /* End at the normal size */
+            }
+        }
+
+        /* Add more dynamic image animation */
+        .slideshow-images .slide img:nth-child(odd) {
+            animation-delay: 0.5s;  /* Delay slightly for odd slides */
+        }
+
+        .slideshow-images .slide img:nth-child(even) {
+            animation-delay: 1s;  /* Delay more for even slides */
+        }
+
+        /* Interactive Chat Box */
+        .chat-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 350px;
+            background-color: #ffffff;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            z-index: 1000;
+        }
+
+        .chat-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        .chat-box-header h3 {
+            margin: 0;
+        }
+
+        .chat-box-header button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-box-header button:focus {
+            outline: none;
+        }
+
+        .chat-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            transition: opacity 0.3s ease;
+        }
+
+        .chat-bubble {
+            margin-bottom: 10px;
+            padding: 12px 18px;
+            border-radius: 25px;
+            max-width: 75%;
+            display: inline-block;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+            border-bottom-left-radius: 0;
+        }
+
+        .bot-message {
+            background-color: #e9e9e9;
+            color: #333;
+            margin-right: auto;
+            border-bottom-right-radius: 0;
+        }
+
+        .chat-prompt {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 15px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-prompt button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-prompt button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add responsiveness for small screens */
+        @media screen and (max-width: 768px) {
+            .chat-box {
+                width: 90%;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .mentor-market-video {
+                width: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="un-header">
+        <div class="mentor-market-text">
+            <span>M</span><span>e</span><span>n</span><span>t</span><span>o</span><span>r</span> 
+            <span>M</span><span>a</span><span>r</span><span>k</span><span>e</span><span>t</span>
+        </div>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">Mentors</a>
+            <a href="#">Messages</a>
+            <a href="#" class="logout">Logout</a>
+        </nav>
+    </header>
+    <div class="mentor-market-video">
+        <video autoplay loop muted>
+            <source src="{% static 'videos/intro.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+    <div class="greeting">
+        Welcome back, <span>John</span>! Ready to mentor today?
+    </div>
+
+    <div class="slideshow-container">
+        <div class="slideshow-images">
+            <div class="slide">
+                <img src="{% static 'images/slide1.jpg' %}" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/slide2.jpg' %}" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="{% static 'images/slide3.jpg' %}" alt="Slide 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-box">
+        <div class="chat-box-header">
+            <h3>Chat with Us</h3>
+            <button>×</button>
+        </div>
+        <div class="chat-content">
+            <div class="chat-bubble bot-message">Hello! How can I assist you today?</div>
+        </div>
+        <div class="chat-prompt">
+            <button>Ask a Question</button>
+            <button>Get Help</button>
+        </div>
+    </div>
+</body>
+</html>

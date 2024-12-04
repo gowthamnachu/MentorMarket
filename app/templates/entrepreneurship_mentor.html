@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Entrepreneurship Mentors - Mentor Market{% endblock %}
+
+{% block content %}
+<div class="about-section">
+    <h2 class="highlighted-heading">Meet Our Entrepreneurship Mentors</h2>
+    <p class="subheading-text">Our experienced mentors are ready to help you navigate the world of entrepreneurship and startup growth.</p>
+</div>
+
+<div class="mentor-list">
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of George King" class="mentor-photo">
+        <h3>George King</h3>
+        <p><strong>Expertise:</strong> Entrepreneurship</p>
+        <p><strong>Experience:</strong> 15 years</p>
+        <p><strong>Bio:</strong> Founder of multiple startups, ready to guide new entrepreneurs.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Lisa Ray" class="mentor-photo">
+        <h3>Lisa Ray</h3>
+        <p><strong>Expertise:</strong> Business Strategy</p>
+        <p><strong>Experience:</strong> 10 years</p>
+        <p><strong>Bio:</strong> Helping founders scale their startups and navigate market challenges.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Sam Patel" class="mentor-photo">
+        <h3>Sam Patel</h3>
+        <p><strong>Expertise:</strong> Venture Capital</p>
+        <p><strong>Experience:</strong> 12 years</p>
+        <p><strong>Bio:</strong> Expert in startup funding, investment strategies, and scaling businesses.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Clara Jones" class="mentor-photo">
+        <h3>Clara Jones</h3>
+        <p><strong>Expertise:</strong> Startup Operations</p>
+        <p><strong>Experience:</strong> 8 years</p>
+        <p><strong>Bio:</strong> Specializing in operations, growth strategies, and scaling businesses.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Daniel Lee" class="mentor-photo">
+        <h3>Daniel Lee</h3>
+        <p><strong>Expertise:</strong> Tech Entrepreneurship</p>
+        <p><strong>Experience:</strong> 7 years</p>
+        <p><strong>Bio:</strong> Founder of a successful tech startup, focusing on technology-driven businesses.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Nina Adams" class="mentor-photo">
+        <h3>Nina Adams</h3>
+        <p><strong>Expertise:</strong> Social Entrepreneurship</p>
+        <p><strong>Experience:</strong> 6 years</p>
+        <p><strong>Bio:</strong> Passionate about building businesses that make a positive social impact.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Oscar Miles" class="mentor-photo">
+        <h3>Oscar Miles</h3>
+        <p><strong>Expertise:</strong> Product Development</p>
+        <p><strong>Experience:</strong> 9 years</p>
+        <p><strong>Bio:</strong> Helping entrepreneurs turn their ideas into viable products.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Rebecca Gray" class="mentor-photo">
+        <h3>Rebecca Gray</h3>
+        <p><strong>Expertise:</strong> Marketing for Startups</p>
+        <p><strong>Experience:</strong> 10 years</p>
+        <p><strong>Bio:</strong> Helping startups create strong brands and reach their target audience effectively.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of John Ford" class="mentor-photo">
+        <h3>John Ford</h3>
+        <p><strong>Expertise:</strong> Scaling Startups</p>
+        <p><strong>Experience:</strong> 14 years</p>
+        <p><strong>Bio:</strong> Specializes in growth strategies and scaling startups to the next level.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+
+    <div class="mentor-card">
+        <img src="{% static 'images/demo_image.jpg' %}" alt="Photo of Emily Carter" class="mentor-photo">
+        <h3>Emily Carter</h3>
+        <p><strong>Expertise:</strong> Business Operations</p>
+        <p><strong>Experience:</strong> 11 years</p>
+        <p><strong>Bio:</strong> Focused on optimizing operational efficiency for growing startups.</p>
+        <button class="cta-btn">Book a Session</button>
+    </div>
+</div>
+
+<style>
+    /* Add font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+
+    /* Styling for the "Meet Our Entrepreneurship Mentors" heading */
+    .highlighted-heading {
+        font-family: 'Poppins', sans-serif;
+        font-size: 36px;
+        font-weight: 600;
+        color: #007bff;  /* Blue color */
+        text-shadow: 2px 2px 10px rgba(0, 123, 255, 0.7);  /* Adds a blue shadow */
+        text-align: center;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .mentor-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .mentor-card {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+    .mentor-card:hover {
+        transform: scale(1.05);
+    }
+
+    .mentor-photo {
+        width: 100px; /* Reduced size */
+        height: 100px; /* Reduced size */
+        border-radius: 50%; /* Makes the image round */
+        object-fit: cover; /* Ensures the image fits within the circle */
+        margin-bottom: 15px;
+    }
+    .subheading-text {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        color: #6c757d;
+        text-align: center;
+        margin-top: 10px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 15px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 15px;
+    }
+
+    .cta-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+{% endblock %}
