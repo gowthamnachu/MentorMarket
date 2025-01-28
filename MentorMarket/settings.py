@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wiq&6z_#mimlyej4yj$*@c%wq=x5jpo0faz6lj*)-3$nd3(r*@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mentormarket.onrender.com','127.0.0.1']
 
 
 # Application definition
