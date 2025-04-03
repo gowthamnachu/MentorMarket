@@ -1,0 +1,16 @@
+<!-- app/templates/mentor_registration.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mentor Registration</title>
+</head>
+<body>
+    <h1>Mentor Registration Form</h1>
+    <a href="{% url 'mentor_list' %}">View All Mentors</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMarket Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Chatbot styles */
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 400px;
+            background-color: #333;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            background-color: #444;
+            padding: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            height: 300px;
+        }
+
+        .user-message, .ai-message {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #4CAF50;
+            text-align: right;
+        }
+
+        .ai-message {
+            background-color: #2196F3;
+            text-align: left;
+        }
+
+        #messageInput {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin: 10px;
+        }
+
+        #sendBtn {
+            width: 15%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #2196F3;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        #sendBtn:hover {
+            background-color: #1e88e5;
+        }
+
+        #messageBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #2196F3;
+            padding: 15px;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #messageBtn:hover {
+            background-color: #1e88e5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Message button -->
+    <button id="messageBtn">💬</button>
+
+    <!-- Chatbot window -->
+    <div id="chatbot">
+        <div class="chat-header">MentorMarket Chat</div>
+        <div class="chat-box" id="chatBox"></div>
+        <div>
+            <input type="text" id="messageInput" placeholder="Type your message..." />
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Open chatbot when message button is clicked
+        document.getElementById('messageBtn').addEventListener('click', () => {
+            document.getElementById('chatbot').style.display = 'flex';
+        });
+
+        // Close the chat window when user presses 'Send'
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const userMessage = document.getElementById('messageInput').value;
+            if (!userMessage.trim()) return;
+
+            // Show the user's message
+            addMessage(userMessage, 'user');
+            document.getElementById('messageInput').value = ''; // Clear input field
+
+            // Get AI response
+            const aiResponse = await getAIResponse(userMessage);
+            addMessage(aiResponse, 'ai');
+        });
+
+        // Function to add message to chat box
+        function addMessage(message, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add(sender + '-message');
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Fetch AI response from the backend
+        async function getAIResponse(userInput) {
+            const response = await fetch('http://localhost:3000/get_response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userInput }),
+            });
+
+            const data = await response.json();
+            return data.response;
+        }
+    </script>
+</body>
+</html>
