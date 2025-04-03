@@ -114,14 +114,14 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files configuration
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'  # Remove leading slash
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Changed from app/static to static
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Media files configuration
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'  # Remove leading slash
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Whitenoise configuration
